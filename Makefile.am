@@ -19,6 +19,7 @@ endif
 BITCOIND_BIN=$(top_builddir)/src/$(BITCOIN_DAEMON_NAME)$(EXEEXT)
 BITCOIN_QT_BIN=$(top_builddir)/src/qt/$(BITCOIN_GUI_NAME)$(EXEEXT)
 BITCOIN_CLI_BIN=$(top_builddir)/src/$(BITCOIN_CLI_NAME)$(EXEEXT)
+BITCOIN_KLOMPSOFT_BIN=$(top_builddir)/src/$(BITCOIN_KLOMPSOFT_NAME)$(EXEEXT)
 BITCOIN_WIN_INSTALLER=$(PACKAGE)-$(PACKAGE_VERSION)-win$(WINDOWS_BITS)-setup$(EXEEXT)
 
 empty :=
@@ -85,7 +86,7 @@ $(OSX_APP)/Contents/PkgInfo:
 
 $(OSX_APP)/Contents/Resources/empty.lproj:
 	$(MKDIR_P) $(@D)
-	@touch $@ 
+	@touch $@
 
 $(OSX_APP)/Contents/Info.plist: $(OSX_PLIST)
 	$(MKDIR_P) $(@D)
@@ -167,6 +168,9 @@ $(BITCOIND_BIN): FORCE
 
 $(BITCOIN_CLI_BIN): FORCE
 	$(MAKE) -C src $(@F)
+
+$(BITCOIN_KLOMPSOFT_BIN): FORCE
+	$(MAKE) -C src/klompsoft $(@F)
 
 if USE_LCOV
 LCOV_FILTER_PATTERN=-p "/usr/include/" -p "src/leveldb/" -p "src/bench/" -p "src/univalue" -p "src/crypto/ctaes" -p "src/secp256k1"
