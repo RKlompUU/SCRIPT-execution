@@ -1,6 +1,6 @@
 #include <script/interpreter.h>
 #include <script/script_error.h>
-#include "sig.h"
+#include <klompsoft/sig.h>
 
 #include <iostream>
 #include <fstream>
@@ -9,48 +9,8 @@
 using namespace std;
 
 
-static unsigned char gethex(const char *s) {
-  //while (isspace(*s)) s++;
-  //assert(*s);
-  return strtoul(s, NULL, 16);
-}
-
-std::vector<unsigned char> readFile(const char *filename)
-{
-    std::vector<unsigned char> res;
-
-    // open the file:
-    std::streampos fileSize;
-    std::ifstream file(filename);
-
-    // get its size:
-    file.seekg(0, std::ios::end);
-    fileSize = file.tellg();
-    file.seekg(0, std::ios::beg);
-
-    // read the data:
-    std::stringstream buffer;
-    buffer << file.rdbuf();
-
-    std::string s = buffer.str();
-    for( int i = 0; i < fileSize; i+=2 )
-    {
-      if( s[i] == '\n' )
-      {
-        i -= 1;
-        continue;
-      }
-      std::string c;
-      c += s[i];
-      c += s[i+1];
-      unsigned char u = gethex(c.c_str());
-    //  cout << "c: " << c << ", " << u << endl;
-      res.push_back(u);
-    }
-
-    return res;
-}
-
+static unsigned char gethex(const char *s);
+static std::vector<unsigned char> readFile(const char *filename);
 
 int main(int argc, const char** argv)
 {
@@ -87,4 +47,47 @@ int main(int argc, const char** argv)
   cout << "Script validator shutdown.." << endl;
 
   return 0;
+}
+
+
+static unsigned char gethex(const char *s) {
+  //while (isspace(*s)) s++;
+  //assert(*s);
+  return strtoul(s, NULL, 16);
+}
+
+static std::vector<unsigned char> readFile(const char *filename)
+{
+    std::vector<unsigned char> res;
+
+    // open the file:
+    std::streampos fileSize;
+    std::ifstream file(filename);
+
+    // get its size:
+    file.seekg(0, std::ios::end);
+    fileSize = file.tellg();
+    file.seekg(0, std::ios::beg);
+
+    // read the data:
+    std::stringstream buffer;
+    buffer << file.rdbuf();
+
+    std::string s = buffer.str();
+    for( int i = 0; i < fileSize; i+=2 )
+    {
+      if( s[i] == '\n' )
+      {
+        i -= 1;
+        continue;
+      }
+      std::string c;
+      c += s[i];
+      c += s[i+1];
+      unsigned char u = gethex(c.c_str());
+    //  cout << "c: " << c << ", " << u << endl;
+      res.push_back(u);
+    }
+
+    return res;
 }

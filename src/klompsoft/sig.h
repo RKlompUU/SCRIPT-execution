@@ -1,3 +1,6 @@
+#ifndef SIG_H
+#define SIG_H
+
 #include <script/interpreter.h>
 
 class DisabledSignatureChecker : public BaseSignatureChecker
@@ -20,3 +23,5 @@ public:
 
     virtual ~DisabledSignatureChecker() {}
 };
+
+#endif

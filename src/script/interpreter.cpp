@@ -12,6 +12,8 @@
 #include <script/script.h>
 #include <uint256.h>
 
+#include <script/debug.h>
+
 typedef std::vector<unsigned char> valtype;
 
 namespace {
@@ -1040,6 +1042,8 @@ bool EvalScript(std::vector<std::vector<unsigned char> >& stack, const CScript& 
             // Size limits
             if (stack.size() + altstack.size() > MAX_STACK_SIZE)
                 return set_error(serror, SCRIPT_ERR_STACK_SIZE);
+
+            dump_stack(stack);
         }
     }
     catch (...)
