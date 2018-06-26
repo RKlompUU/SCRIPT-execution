@@ -20,7 +20,7 @@ void dump_stack(std::vector<std::vector<unsigned char>> &stack)
     log(L_INFO) << "\n";
     i++;
   }
-  log(L_INFO) << "\n" << "\n";
+  log(L_INFO) << "\n";
 }
 
 std::string op2str(opcodetype opcode)

@@ -11,6 +11,7 @@ using namespace std;
 
 static unsigned char gethex(const char *s);
 static std::vector<unsigned char> readFile(const char *filename);
+static std::vector<unsigned char> readStdin();
 static bool eval_script(std::vector<std::vector<unsigned char> >& stack,
                         const CScript& script,
                         unsigned int flags,
@@ -23,7 +24,13 @@ int main(int argc, const char** argv)
   if (argc < 3)
     return 1;
 
-  vector<unsigned char> scrpt_b = readFile(argv[1]);
+  vector<unsigned char> scrpt_b;
+  if (strcmp(argv[1],"0") == 0)
+  {
+    scrpt_b = readStdin();
+  }
+  else
+    scrpt_b = readFile(argv[1]);
   vector<unsigned char> out_b = readFile(argv[2]);
 
   scrpt_b.insert(scrpt_b.end(), out_b.begin(), out_b.end());
@@ -84,6 +91,30 @@ static std::vector<unsigned char> readFile(const char *filename)
 
     std::string s = buffer.str();
     for( int i = 0; i < fileSize; i+=2 )
+    {
+      if( s[i] == '\n' )
+      {
+        i -= 1;
+        continue;
+      }
+      std::string c;
+      c += s[i];
+      c += s[i+1];
+      unsigned char u = gethex(c.c_str());
+    //  cout << "c: " << c << ", " << u << endl;
+      res.push_back(u);
+    }
+
+    return res;
+}
+
+static std::vector<unsigned char> readStdin()
+{
+    std::vector<unsigned char> res;
+
+    std::string s;
+    std::getline(std::cin, s);;
+    for( unsigned int i = 0; i < s.size(); i+=2 )
     {
       if( s[i] == '\n' )
       {
