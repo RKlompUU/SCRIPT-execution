@@ -11,6 +11,12 @@ using namespace std;
 
 static unsigned char gethex(const char *s);
 static std::vector<unsigned char> readFile(const char *filename);
+static bool eval_script(std::vector<std::vector<unsigned char> >& stack,
+                        const CScript& script,
+                        unsigned int flags,
+                        const BaseSignatureChecker& checker,
+                        SigVersion sigversion,
+                        ScriptError* serror);
 
 int main(int argc, const char** argv)
 {
@@ -37,8 +43,11 @@ int main(int argc, const char** argv)
 
   //bool EvalScript(std::vector<std::vector<unsigned char> >& stack, const CScript& script, unsigned int flags, const BaseSignatureChecker& checker, SigVersion sigversion, ScriptError* serror)
 
-  if (EvalScript(stack, script, flags, sigchecker, sigVersion, &err))
+
+  if (eval_script(stack, script, flags, sigchecker, sigVersion, &err))
+  {
     cout << "Eval: success" << endl;
+  }
   else
   {
     cout << "Eval: failure, err: " << ScriptErrorString(err) << endl;
@@ -90,4 +99,21 @@ static std::vector<unsigned char> readFile(const char *filename)
     }
 
     return res;
+}
+
+static bool eval_script(std::vector<std::vector<unsigned char> >& stack,
+                        const CScript& script,
+                        unsigned int flags,
+                        const BaseSignatureChecker& checker,
+                        SigVersion sigversion,
+                        ScriptError* serror)
+{
+  if(!EvalScript(stack, script, flags, checker, sigversion, serror))
+    return false;
+  if (stack.size() == 0 || !CastToBool(stack.back()))
+  {
+    *serror = SCRIPT_ERR_EVAL_FALSE;
+    return false;
+  }
+  return true;
 }
