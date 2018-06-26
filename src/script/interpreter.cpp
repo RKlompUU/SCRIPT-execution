@@ -285,7 +285,7 @@ bool EvalScript(std::vector<std::vector<unsigned char> >& stack, const CScript& 
                 return set_error(serror, SCRIPT_ERR_BAD_OPCODE);
             if (vchPushValue.size() > MAX_SCRIPT_ELEMENT_SIZE)
                 return set_error(serror, SCRIPT_ERR_PUSH_SIZE);
-            log(L_INFO) << "************" << "\n" << "instruction[" << nOpCount << "] " << op2str(opcode) << "\n";
+            log(L_INFO) << "************" << "\n" << (fExec ? "" : "~") << "instruction[" << nOpCount << "] " << op2str(opcode) << "\n";
             // Note how OP_RESERVED does not count towards the opcode limit.
             if (opcode > OP_16 && ++nOpCount > MAX_OPS_PER_SCRIPT)
                 return set_error(serror, SCRIPT_ERR_OP_COUNT);
