@@ -22,7 +22,10 @@ static bool eval_script(std::vector<std::vector<unsigned char> >& stack,
 int main(int argc, const char** argv)
 {
   if (argc < 3)
+  {
+    std::cerr << "Provide 2 arguments: [0|<path to input>] <path to output>" << std::endl;
     return 1;
+  }
 
   vector<unsigned char> scrpt_b;
   if (strcmp(argv[1],"0") == 0)
