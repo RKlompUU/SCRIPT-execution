@@ -1,3 +1,3 @@
 #!/bin/sh
 
-make klompsoft-target
+make klompsoft-target -j 6

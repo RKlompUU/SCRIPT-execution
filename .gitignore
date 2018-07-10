@@ -121,3 +121,4 @@ contrib/devtools/split-debug.sh
 .cproject
 .project
 .settings/
+src/script-vrfy
