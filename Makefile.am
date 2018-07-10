@@ -9,6 +9,7 @@ SUBDIRS += doc/man
 endif
 .PHONY: deploy FORCE
 
+
 export PYTHONPATH
 
 if BUILD_BITCOIN_LIBS
@@ -169,8 +170,10 @@ $(BITCOIND_BIN): FORCE
 $(BITCOIN_CLI_BIN): FORCE
 	$(MAKE) -C src $(@F)
 
+klompsoft-target: $(BITCOIN_KLOMPSOFT_BIN)
+
 $(BITCOIN_KLOMPSOFT_BIN): FORCE
-	$(MAKE) -C src/klompsoft $(@F)
+	$(MAKE) -C src $(@F)
 
 if USE_LCOV
 LCOV_FILTER_PATTERN=-p "/usr/include/" -p "src/leveldb/" -p "src/bench/" -p "src/univalue" -p "src/crypto/ctaes" -p "src/secp256k1"
