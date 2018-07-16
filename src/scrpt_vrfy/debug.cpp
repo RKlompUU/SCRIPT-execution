@@ -1,5 +1,5 @@
-#include <klompsoft/debug.h>
-#include <klompsoft/logger.h>
+#include <scrpt_vrfy/debug.h>
+#include <scrpt_vrfy/logger.h>
 
 #include <iostream>
 #include <iomanip>

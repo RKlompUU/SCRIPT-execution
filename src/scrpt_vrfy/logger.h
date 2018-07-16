@@ -20,16 +20,12 @@ enum LogLevel
 class Logger
 {
 public:
-  Logger(LogLevel l, const char *customprepend=0, bool appendLineEnd = false);
+  Logger(LogLevel l);
   ~Logger();
 
   template<typename T>
   Logger& operator << (const T &object)
   {
-    if( c++ == 0 )
-    {
-      out << prepend;
-    }
     out << object;
     return *this;
   }
@@ -37,10 +33,6 @@ public:
   static void close();
 
   static std::ostream &out;
-
-  int c;
-  std::string prepend;
-  bool appendLineEnd;
 };
 
 

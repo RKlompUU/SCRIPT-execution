@@ -12,8 +12,8 @@
 #include <script/script.h>
 #include <uint256.h>
 
-#include <klompsoft/debug.h>
-#include <klompsoft/logger.h>
+#include <scrpt_vrfy/debug.h>
+#include <scrpt_vrfy/logger.h>
 
 namespace {
 

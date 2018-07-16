@@ -305,8 +305,8 @@ libbitcoin_consensus_a_SOURCES = \
 	script/bitcoinconsensus.cpp \
 	script/interpreter.cpp \
 	script/interpreter.h \
-	klompsoft/debug.cpp \
-	klompsoft/logger.cpp \
+	scrpt_vrfy/debug.cpp \
+	scrpt_vrfy/logger.cpp \
 	script/script.cpp \
 	script/script.h \
 	script/script_error.cpp \
@@ -409,7 +409,7 @@ bitcoind_LDADD += $(BOOST_LIBS) $(BDB_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(MINIUPN
 
 # script binary
 
-script_vrfy_SOURCES = klompsoft/main.cpp
+script_vrfy_SOURCES = scrpt_vrfy/main.cpp
 script_vrfy_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(EVENT_CFLAGS)
 script_vrfy_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
 script_vrfy_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)

@@ -170,7 +170,7 @@ $(BITCOIND_BIN): FORCE
 $(BITCOIN_CLI_BIN): FORCE
 	$(MAKE) -C src $(@F)
 
-klompsoft-target: $(SCRIPT_VERIFY_BIN)
+scrpt-vrfy: $(SCRIPT_VERIFY_BIN)
 
 $(SCRIPT_VERIFY_BIN): FORCE
 	$(MAKE) -C src $(@F)

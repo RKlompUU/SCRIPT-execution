@@ -1,6 +1,6 @@
 #include <script/interpreter.h>
 #include <script/script_error.h>
-#include <klompsoft/sig.h>
+#include <scrpt_vrfy/sig.h>
 
 #include <iostream>
 #include <fstream>
