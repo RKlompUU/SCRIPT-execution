@@ -1,7 +1,7 @@
 Bitcoin Core - SCRIPT execution and verification
 =====================================
 
-This is a fork of the Bitcoin Core client, which has been slightly altered to provide an executable that directly applies the script execution machinery.
+This is a fork of the Bitcoin Core client, which has been slightly altered to provide an executable that directly applies the script execution machinery. Additionally, the execution machinery itself has been slightly modified to include verbose logging.
 
 ### Installation
 - Execute: ./setup.sh
