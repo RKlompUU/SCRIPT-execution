@@ -72,7 +72,7 @@ if BUILD_BITCOIN_UTILS
 bin_PROGRAMS += bitcoin-cli bitcoin-tx
 endif
 
-bin_PROGRAMS += script-vrfy
+bin_PROGRAMS += scrpt-vrfy
 
 .PHONY: FORCE check-symbols check-security
 # bitcoin core #
@@ -409,12 +409,12 @@ bitcoind_LDADD += $(BOOST_LIBS) $(BDB_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(MINIUPN
 
 # script binary
 
-script_vrfy_SOURCES = scrpt_vrfy/main.cpp
-script_vrfy_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(EVENT_CFLAGS)
-script_vrfy_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-script_vrfy_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+scrpt_vrfy_SOURCES = scrpt_vrfy/main.cpp
+scrpt_vrfy_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(EVENT_CFLAGS)
+scrpt_vrfy_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+scrpt_vrfy_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 
-script_vrfy_LDADD = \
+scrpt_vrfy_LDADD = \
 	$(LIBBITCOIN_UTIL) \
 	$(LIBBITCOIN_CONSENSUS) \
 	$(LIBSECP256K1) \
@@ -422,7 +422,7 @@ script_vrfy_LDADD = \
 	$(LIBUNIVALUE) \
 	$(LIBBITCOIN_CRYPTO)
 
-script_vrfy_LDADD += $(BOOST_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(EVENT_LIBS)
+scrpt_vrfy_LDADD += $(BOOST_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(EVENT_LIBS)
 
 # bitcoin-cli binary #
 bitcoin_cli_SOURCES = bitcoin-cli.cpp
