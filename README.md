@@ -19,6 +19,10 @@ Optionally, the path to the input script can be omitted by assigning the first a
 
 ### Description of output
 
-![Alt text](.imgs/outputExample.png?raw=true "Example")
+![Alt text](.imgs/example.png?raw=true "Example")
 
-todo
+The tool first prints the composed script (the input script concatenated with the output script) in hexadecimal bytestring format, and then starts evaluation.
+
+After each processed command the resulting intermediate stack is printed. The head of the stack is shown at the bottom. Each entry has 3 columns, respectively: index number (with tail: 0, and head: size of the stack - 1), bytestring value, length of the bytestring value.
+
+Finally, the verdict is printed, including the reason for failure if evaluation was not successful.
