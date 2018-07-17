@@ -3,6 +3,7 @@
 #include <scrpt_vrfy/sig.h>
 
 #include <iostream>
+#include <iomanip>
 #include <fstream>
 #include <sstream>
 
@@ -48,7 +49,7 @@ int main(int argc, const char** argv)
   cout << "Script validator boot.." << endl;
 
   for(auto i : script)
-    cout << hex << (unsigned int)i;
+    cout << hex << setw(2) << setfill('0') << (unsigned int)i;
   cout << endl;
 
   //bool EvalScript(std::vector<std::vector<unsigned char> >& stack, const CScript& script, unsigned int flags, const BaseSignatureChecker& checker, SigVersion sigversion, ScriptError* serror)
