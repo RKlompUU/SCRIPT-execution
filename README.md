@@ -23,6 +23,8 @@ Optionally, the path to the input script can be omitted by assigning the first a
 
 The tool first prints the composed script (the input script concatenated with the output script) in hexadecimal bytestring format, and then starts evaluation.
 
+At each step the command is printed. A ~ is prepended if the command is skipped (due to an IF or ELSE branch that the interpreter is jumping over).
+
 After each processed command the resulting intermediate stack is printed. The head of the stack is shown at the bottom. Each entry has 3 columns, respectively: index number (with tail: 0, and head: size of the stack - 1), bytestring value, length of the bytestring value.
 
 Finally, the verdict is printed, including the reason for failure if evaluation was not successful.
