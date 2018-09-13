@@ -3,12 +3,19 @@
 
 #include <script/interpreter.h>
 
+#include <iostream>
+#include <key.h>
+
 class DisabledSignatureChecker : public BaseSignatureChecker
 {
 public:
     virtual bool CheckSig(const std::vector<unsigned char>& scriptSig, const std::vector<unsigned char>& vchPubKey, const CScript& scriptCode, SigVersion sigversion) const
     {
-        return true;
+      CKey priv;
+      CPubKey pub(vchPubKey);
+      priv.Set(scriptSig.begin(), scriptSig.end(), false);
+      //CPrivKey privKey
+      return priv.Load(priv.GetPrivKey(), pub, false);
     }
 
     virtual bool CheckLockTime(const CScriptNum& nLockTime) const

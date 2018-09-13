@@ -6,6 +6,14 @@
 #include <iomanip>
 #include <fstream>
 #include <sstream>
+#include <string>
+
+#include <key.h>
+#include <random.h>
+#include <init.h>
+#include <script/sigcache.h>
+#include <validation.h>
+#include <util.h>
 
 using namespace std;
 
@@ -19,13 +27,40 @@ static bool eval_script(std::vector<std::vector<unsigned char> >& stack,
                         const BaseSignatureChecker& checker,
                         SigVersion sigversion,
                         ScriptError* serror);
+static void createKeySet();
 
 int main(int argc, const char** argv)
 {
-  if (argc < 3)
+  //AppInitBasicSetup();
+  SHA256AutoDetect();
+  RandomInit();
+
+  ECC_Start();
+  ECCVerifyHandle pubECCHandle;
+  SetupEnvironment();
+  SetupNetworking();
+  InitSignatureCache();
+//  InitScriptExecutionCache();
+
+  //return 0;
+
+  if(!ECC_InitSanityCheck()) {
+      cerr << ("Elliptic curve cryptography sanity check failure. Aborting.") << endl;
+        ECC_Stop();
+      return false;
+  }
+  if (argc < 2)
   {
     std::cerr << "Provide 2 arguments: [0|<path to input>] <path to output>" << std::endl;
+      ECC_Stop();
     return 1;
+  }
+
+  if (strcmp(argv[1],"s") == 0)
+  {
+    createKeySet();
+      ECC_Stop();
+    return 0;
   }
 
   vector<unsigned char> scrpt_b;
@@ -44,6 +79,7 @@ int main(int argc, const char** argv)
   unsigned int flags = SCRIPT_VERIFY_NONE;
   SigVersion sigVersion = SIGVERSION_BASE;
   ScriptError err;
+  //DisabledSignatureChecker sigchecker;
   DisabledSignatureChecker sigchecker;
 
   cout << "Script validator boot.." << endl;
@@ -66,6 +102,7 @@ int main(int argc, const char** argv)
 
   cout << "Script validator shutdown.." << endl;
 
+    ECC_Stop();
   return 0;
 }
 
@@ -151,4 +188,19 @@ static bool eval_script(std::vector<std::vector<unsigned char> >& stack,
     return false;
   }
   return true;
+}
+
+void createKeySet()
+{
+  CKey priv;
+  priv.MakeNewKey(true);
+
+  CPubKey pub = priv.GetPubKey();
+  assert(priv.VerifyPubKey(pub));
+
+  for( unsigned int i = 0; i < priv.size(); i++ )
+  {
+    unsigned char u = *(priv.begin() + i);
+    cout << hex << setw(2) << setfill('0') << u;
+  }
 }
