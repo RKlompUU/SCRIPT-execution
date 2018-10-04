@@ -17,7 +17,7 @@ void dump_stack(std::vector<std::vector<unsigned char>> &stack)
     {
       log(L_INFO) << hex << setfill('0') << setw(2) << (unsigned int)c;
     }
-    log(L_INFO) << "|" << r.size() << "\n";
+    log(L_INFO) << "|" << dec << r.size() << "\n";
     i++;
   }
   log(L_INFO) << "\n";
